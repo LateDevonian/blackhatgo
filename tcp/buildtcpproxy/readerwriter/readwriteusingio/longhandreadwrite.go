@@ -1,6 +1,7 @@
-package main
+package readerwriter
 
 //build a reader and writer as an example
+//keepfor reference and do no use
 
 import (
 	"fmt"
@@ -26,7 +27,7 @@ func (fooWriter *FooWriter) Write(b []byte) (int, error) {
 	return os.Stdout.Write(b)
 }
 
-func main() {
+func useExplicitInsOuts() {
 	// Instantiate reqder and writer
 	var (
 		reader FooReader
