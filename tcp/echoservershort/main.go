@@ -1,5 +1,7 @@
 package main
 
+// shortened echo server using go packages
+
 import (
 	"io"
 	"log"
@@ -10,27 +12,25 @@ import (
 func echo(conn net.Conn) {
 	defer conn.Close()
 
-	//Create a buffer to store recieved data
-	b := make([]byte, 512)
-	for {
-		//Recieve data via conn.Read into buffer
-		size, err := conn.Read(b[0:])
-		if err == io.EOF {
-			log.Println("client disconnected")
-			break
-		}
-		if err != nil {
-			log.Println("unexpected error")
-			break
-		}
-		log.Printf("Recieved %d byes: %s\n", size, string(b))
-
-		//send data via conn.Write
-		log.Println("Writing data")
-		if _, err := conn.Write(b[0:size]); err != nil {
-			log.Fatalln("Unable to write data")
-		}
+	//copy data from io.Reader to io.Writer via io.Copy()
+	if _, err := io.Copy(conn, conn); err != nil {
+		log.Fatalln("Unable to read/write data")
 	}
+
+	// old refactored into new
+	// reader := bufio.NewReader(conn)
+	// s, err := reader.ReadString('\n')
+	// if err != nil {
+	// 	log.Fatalln("Unable to read data")
+	// }
+	// log.Printf("read %d bytes: %s", len(s), s)
+
+	// log.Println("writing data")
+	// writer := bufio.NewWriter(conn)
+	// if _, err := writer.WriteString(s); err != nil {
+	// 	log.Fatalln("Unable to write data")
+	// }
+	// writer.Flush()
 }
 
 func main() {
