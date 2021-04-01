@@ -1,4 +1,4 @@
-package readwriter
+package main
 
 //build a reader and writer as an example
 //keepfor reference and do no use
