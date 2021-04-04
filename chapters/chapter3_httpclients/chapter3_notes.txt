@@ -1,0 +1,2 @@
+go has a net/http standard package for rest api stuff
+function takes a url as a string for th request destination. Post also take s bodytype and io reader.
